@@ -600,12 +600,16 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
 /***************************EXERCICE3***************************/
 InversionList *inversion_list_symmetric_difference(const InversionList *set1,
                                                    const InversionList *set2) {
+  InversionList *null = NULL;
   InversionList *i =
-      inversion_list_intersection(set1, set2, reinterpret_cast<InversionList*>(NULL));
-  InversionList *u = inversion_list_union(set1, set2, reinterpret_cast<InversionList*>(NULL));
-  InversionList *res = inversion_list_difference(u, i, reinterpret_cast<InversionList*>(NULL));
+      inversion_list_intersection(set1, set2, null);
+  InversionList *u = inversion_list_union(set1, set2, null);
+  InversionList *res = inversion_list_difference(u, i, null);
+  
   inversion_list_destroy(i);
   inversion_list_destroy(u);
+  inversion_list_destroy(null);
+  
   return res;
 }
 
