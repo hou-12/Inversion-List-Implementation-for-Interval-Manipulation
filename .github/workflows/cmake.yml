@@ -54,8 +54,8 @@ jobs:
       run: ctest -C ${{env.BUILD_TYPE}}
 
    # - name: Lint
-    #  working-directory: ${{github.workspace}}/build
-     # run: make cclint
+   #    working-directory: ${{github.workspace}}/build
+   #     run: make cclint
 
     - name: Flaw Finder
       working-directory: ${{github.workspace}}/build
