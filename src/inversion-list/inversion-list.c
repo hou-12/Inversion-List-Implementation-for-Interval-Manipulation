@@ -517,28 +517,28 @@ static InversionList *_difference(const InversionList *set1,
 
 InversionList *inversion_list_union(const InversionList *set, ...) {
   const InversionList *arg;
-  
+
   InversionList *res = NULL;
   InversionList *temp = inversion_list_clone(set);
   va_list args;
   unsigned int i = 0;
-  
+
   va_start(args, set);
   unsigned int count = 0;
-    
+
   while ((arg = va_arg(args, const InversionList *))) {
     inversion_list_destroy(res);
-    
+
     res = _union(temp, arg);
-    
+
     inversion_list_destroy(temp);
-    temp = inversion_list_clone(res); 
+    temp = inversion_list_clone(res);
   }
 
   va_end(args);
-  
+
   inversion_list_destroy(temp);
-  
+
   return res;
 }
 
@@ -567,7 +567,6 @@ InversionList *inversion_list_intersection(const InversionList *set, ...) {
   return res;
 }
 
-
 InversionList *inversion_list_difference(const InversionList *set, ...) {
   const InversionList *arg;
   InversionList *res;
@@ -585,17 +584,17 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
         temp = inversion_list_clone(arg);
       } else {
         res = _union(temp, arg);
-        
+
         inversion_list_destroy(temp);
         temp = inversion_list_clone(res);
-        
+
         inversion_list_destroy(res);
       }
     }
   }
   va_end(args);
   res = _difference(set, temp);
-  
+
   inversion_list_destroy(temp);
   return res;
 }
@@ -603,10 +602,11 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
 /***************************EXERCICE3***************************/
 InversionList *inversion_list_symmetric_difference(const InversionList *set1,
                                                    const InversionList *set2) {
-  InversionList *i = inversion_list_intersection(set1, set2, (InversionList *)NULL);
+  InversionList *i =
+      inversion_list_intersection(set1, set2, (InversionList *)NULL);
   InversionList *u = inversion_list_union(set1, set2, (InversionList *)NULL);
   InversionList *res = inversion_list_difference(u, i, (InversionList *)NULL);
-  
+
   inversion_list_destroy(i);
   inversion_list_destroy(u);
   return res;
@@ -650,8 +650,7 @@ bool inversion_list_iterator_valid(const InversionListIterator *iterator) {
   return iterator->index < iterator->set->couples[iterator->set->size - 1];
 }
 
-unsigned int
-inversion_list_iterator_get(InversionListIterator *iterator) {
+unsigned int inversion_list_iterator_get(InversionListIterator *iterator) {
   if (iterator) {
     if (inversion_list_member(iterator->set, iterator->index)) {
       return iterator->index;
@@ -667,8 +666,8 @@ inversion_list_iterator_get(InversionListIterator *iterator) {
 /***************************EXERCICE 7***************************/
 InversionListCoupleIterator *
 inversion_list_couple_iterator_create(const InversionList *set) {
-assert(_counter > 0);
-InversionListCoupleIterator *iterator = malloc(sizeof(InversionListIterator));
+  assert(_counter > 0);
+  InversionListCoupleIterator *iterator = malloc(sizeof(InversionListIterator));
   if (iterator) {
     iterator->set = set;
     iterator->index = 0;
@@ -710,4 +709,3 @@ unsigned int inversion_list_couple_iterator_get_sup(
     const InversionListCoupleIterator *iterator) {
   return iterator->set->couples[iterator->index + 1];
 }
-
