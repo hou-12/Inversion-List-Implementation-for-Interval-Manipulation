@@ -11,7 +11,7 @@ Use ``brew`` and not ``apt`` if you are on macos!
 .. code:: shell-session
 
    $ sudo apt install cmake gcc lcov cppcheck python-pip valgrind flawfinder doxygen dot
-   $ [sudo] pip install [--user] -r c-arithmetic/docs/requirements.txt
+   $ [sudo] pip install [--user] -r inversion-list/docs/requirements.txt
 
 Usage
 -----
