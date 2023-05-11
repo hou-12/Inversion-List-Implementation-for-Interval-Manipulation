@@ -17,7 +17,6 @@ int main(void) {
     unsigned int a[] = {1, 2, 3};
     unsigned int b[] = {2};
     unsigned int c[] = {3, 4};
-    
     InversionList *null = NULL;
     InversionList *set = inversion_list_create(20, sizeof a / sizeof *a, a);
     InversionList *set1;
