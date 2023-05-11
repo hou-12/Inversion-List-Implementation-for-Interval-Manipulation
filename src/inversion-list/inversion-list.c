@@ -1,4 +1,4 @@
-#include "./inversion-list.h" // NOLINT(build/include)
+#include "./inversion-list.h"  // NOLINT(build/include)
 
 #include <assert.h>
 #include <errno.h>
@@ -64,7 +64,7 @@ bool inversion_list_finish(void) {
 
 static int _compare_unsigned_int(const void *value1, const void *value2) {
   return *(unsigned int *)value1 -
-         *(unsigned int *)value2; // NOLINT(readability/casting)
+         *(unsigned int *)value2;  // NOLINT(readability/casting)
 }
 
 InversionList *inversion_list_create(unsigned int capacity, size_t count,
@@ -78,7 +78,7 @@ InversionList *inversion_list_create(unsigned int capacity, size_t count,
 
   unsigned int i;
   size_t size;
-  memcpy(buffer, values, count * sizeof(unsigned int)); // flawfinder: ignore
+  memcpy(buffer, values, count * sizeof(unsigned int));  // flawfinder: ignore
   unsigned int support = 0;
   if (count) {
     qsort(buffer, count, sizeof *buffer, _compare_unsigned_int);
@@ -221,7 +221,7 @@ InversionList *inversion_list_clone(const InversionList *set) {
   if (clone) {
     memcpy(clone, set,
            sizeof(InversionList) +
-               set->size * sizeof(unsigned int)); // flawfinder: ignore
+               set->size * sizeof(unsigned int));  // flawfinder: ignore
     return clone;
   } else {
     errno = ENOMEM;
@@ -249,20 +249,20 @@ InversionList *inversion_list_complement(const InversionList *set) {
     if (set->couples[0] == 0) {
       if (set->couples[set->size - 1] == set->capacity) {
         memcpy(complement->couples, set->couples + 1,
-               size * sizeof(unsigned int)); // flawfinder: ignore
+               size * sizeof(unsigned int));  // flawfinder: ignore
       } else {
         memcpy(complement->couples, set->couples + 1,
-               (size - 1) * sizeof(unsigned int)); // flawfinder: ignore
+               (size - 1) * sizeof(unsigned int));  // flawfinder: ignore
         complement->couples[size - 1] = set->capacity;
       }
     } else {
       complement->couples[0] = 0;
       if (set->couples[set->size - 1] == set->capacity) {
         memcpy(complement->couples + 1, set->couples,
-               (size - 1) * sizeof(unsigned int)); // flawfinder: ignore
+               (size - 1) * sizeof(unsigned int));  // flawfinder: ignore
       } else {
         memcpy(complement->couples + 1, set->couples,
-               (size - 2) * sizeof(unsigned int)); // flawfinder: ignore
+               (size - 2) * sizeof(unsigned int));  // flawfinder: ignore
         complement->couples[size - 1] = set->capacity;
       }
     }
@@ -276,11 +276,11 @@ InversionList *inversion_list_complement(const InversionList *set) {
 static bool _add_string(char **pstring, unsigned int *plength,
                         const char *add) {
   if (add) {
-    unsigned int inc_length = strlen(add); // flawfinder: ignore
+    unsigned int inc_length = strlen(add);  // flawfinder: ignore
     char *string = realloc(*pstring, *plength + inc_length + 1);
     if (string) {
       *pstring = string;
-      strncpy(*pstring + *plength, add, inc_length + 1); // flawfinder: ignore
+      strncpy(*pstring + *plength, add, inc_length + 1);  // flawfinder: ignore
       *plength += inc_length;
       return true;
     } else {
@@ -320,7 +320,7 @@ const char *inversion_list_to_string(const InversionList *set) {
           return NULL;
         }
       }
-      static char current[100]; // flawfinder: ignore
+      static char current[100];  // flawfinder: ignore
       snprintf(current, sizeof current, "%u", value);
       if (!_add_string(&string, &length, current)) {
         return NULL;
@@ -350,7 +350,6 @@ bool inversion_list_equal(const InversionList *set1,
                           const InversionList *set2) {
   if (inversion_list_support(set1) != inversion_list_support(set2) ||
       set1->size != set2->size) {
-
     return false;
   }
 
@@ -419,7 +418,6 @@ bool inversion_list_disjoint(const InversionList *set1,
 // A FAIRE EN VERSION DICHOTOMIQUE
 static InversionList *_union(const InversionList *set1,
                              const InversionList *set2) {
-
   if (set2 == NULL) {
     return inversion_list_clone(set2);
   }
@@ -456,7 +454,6 @@ static InversionList *_union(const InversionList *set1,
 // A FAIRE EN VERSION DICHOTOMIQUE
 static InversionList *_intersection(const InversionList *set1,
                                     const InversionList *set2) {
-
   if (set2 == NULL) {
     return inversion_list_clone(set2);
   }
@@ -494,7 +491,6 @@ static InversionList *_difference(const InversionList *set1,
   if (set1 == NULL) {
     return NULL;
   }
-
   unsigned int *buff =
       _get_buffer((set1->support + set2->support) * sizeof(unsigned int));
 
@@ -526,7 +522,7 @@ InversionList *inversion_list_union(const InversionList *set, ...) {
   InversionList *temp = inversion_list_clone(set);
   va_list args;
   unsigned int i = 0;
-
+  
   va_start(args, set);
   unsigned int count = 0;
     
@@ -534,16 +530,15 @@ InversionList *inversion_list_union(const InversionList *set, ...) {
     inversion_list_destroy(res);
     
     res = _union(temp, arg);
-
-    inversion_list_destroy(temp);
-    temp = inversion_list_clone(res);
     
+    inversion_list_destroy(temp);
+    temp = inversion_list_clone(res); 
   }
 
   va_end(args);
-    
+  
   inversion_list_destroy(temp);
-    
+  
   return res;
 }
 
@@ -585,14 +580,12 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
   while ((arg = va_arg(args, const InversionList *))) {
 
     if (inversion_list_not_equal(set, arg)) {
-
       if (temp == NULL) {
         inversion_list_destroy(temp);
         temp = inversion_list_clone(arg);
       } else {
-
         res = _union(temp, arg);
-
+        
         inversion_list_destroy(temp);
         temp = inversion_list_clone(res);
         
@@ -600,10 +593,9 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
       }
     }
   }
-
   va_end(args);
   res = _difference(set, temp);
-
+  
   inversion_list_destroy(temp);
   return res;
 }
@@ -614,7 +606,7 @@ InversionList *inversion_list_symmetric_difference(const InversionList *set1,
   InversionList *i = inversion_list_intersection(set1, set2, (InversionList *)NULL);
   InversionList *u = inversion_list_union(set1, set2, (InversionList *)NULL);
   InversionList *res = inversion_list_difference(u, i, (InversionList *)NULL);
-
+  
   inversion_list_destroy(i);
   inversion_list_destroy(u);
   return res;
@@ -675,8 +667,8 @@ inversion_list_iterator_get(InversionListIterator *iterator) {
 /***************************EXERCICE 7***************************/
 InversionListCoupleIterator *
 inversion_list_couple_iterator_create(const InversionList *set) {
-  assert(_counter > 0);
-  InversionListCoupleIterator *iterator = malloc(sizeof(InversionListIterator));
+assert(_counter > 0);
+InversionListCoupleIterator *iterator = malloc(sizeof(InversionListIterator));
   if (iterator) {
     iterator->set = set;
     iterator->index = 0;
