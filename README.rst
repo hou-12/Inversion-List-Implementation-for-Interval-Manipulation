@@ -1,4 +1,4 @@
-c-arithmetic project
+inversion-list project
 ====================
 
 |cmake| |Coveralls| |Documentation Status|
@@ -11,7 +11,7 @@ Use ``brew`` and not ``apt`` if you are on macos!
 .. code:: shell-session
 
    $ sudo apt install cmake gcc lcov cppcheck python-pip valgrind flawfinder doxygen dot
-   $ [sudo] pip install [--user] -r c-arithmetic/docs/requirements.txt
+   $ [sudo] pip install [--user] -r inversion-list/docs/requirements.txt
 
 Usage
 -----
@@ -75,9 +75,9 @@ Install package
 
    $ make install
 
-.. |cmake| image:: https://github.com/chdemko/c-arithmetic/actions/workflows/cmake.yml/badge.svg
-   :target: https://github.com/chdemko/c-arithmetic/actions
-.. |Coveralls| image:: https://img.shields.io/coveralls/chdemko/c-arithmetic.svg
-   :target: https://coveralls.io/r/chdemko/c-arithmetic?branch=main
-.. |Documentation Status| image:: https://img.shields.io/readthedocs/c-arithmetic.svg
-   :target: http://c-arithmetic.readthedocs.io/en/latest/?badge=latest
+.. |cmake| image:: https://github.com/hou-12/inversion-list/actions/workflows/cmake.yml/badge.svg
+   :target: https://github.com/hou-12/inversion-list/actions
+.. |Coveralls| image:: https://img.shields.io/coveralls/hou-12/inversion-list.svg
+   :target: https://coveralls.io/r/hou-12/inversion-list?branch=main
+.. |Documentation Status| image:: https://img.shields.io/readthedocs/inversion-list.svg
+   :target: http://inversion-list.readthedocs.io/en/latest/?badge=latest
