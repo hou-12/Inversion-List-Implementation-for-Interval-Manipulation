@@ -24,11 +24,11 @@ int main(void) {
     InversionList *set2 = inversion_list_create(20, sizeof b / sizeof *b, b);
     InversionList *set3 = inversion_list_create(30, sizeof c / sizeof *c, c);
 
-    set1 = inversion_list_union(set, set2, set3, (InversionList *)NULL);
+    set1 = inversion_list_union(set, set2, set3, reinterpret_cast<InversionList*>(NULL));
     assert(strcmp(inversion_list_to_string(set1), "[1, 2, 3, 5, 7, 9, 10, 12, 23]") == 0);
     inversion_list_destroy(set1);
 
-    set1 = inversion_list_union(set, set2, (InversionList *)NULL);
+    set1 = inversion_list_union(set, set2, reinterpret_cast<InversionList*>(NULL));
     assert(strcmp(inversion_list_to_string(set1), "[1, 2, 3, 5, 7, 9, 10]") == 0);
 
     inversion_list_destroy(set);
