@@ -26,8 +26,8 @@ jobs:
     - name: Install valgrind
       run: sudo apt-get install valgrind
 
-    - name: Install cppcheck
-      run: sudo apt-get install cppcheck
+   # - name: Install cppcheck
+   #  run: sudo apt-get install cppcheck
 
     - name: Install flawfinder
       run: sudo apt-get install flawfinder
