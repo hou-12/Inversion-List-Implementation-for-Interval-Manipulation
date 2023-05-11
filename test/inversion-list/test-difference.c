@@ -26,7 +26,7 @@ int main(void) {
     set1 = inversion_list_difference(set, set2, set3, null);
     assert(strcmp(inversion_list_to_string(set1), "[1]") == 0);
     inversion_list_destroy(set1);
-    
+
     set1 = inversion_list_difference(set, set2, null);
     assert(strcmp(inversion_list_to_string(set1), "[1, 3]") == 0);
     inversion_list_destroy(set1);
@@ -34,7 +34,7 @@ int main(void) {
     // test difference symmetric
     set1 = inversion_list_symmetric_difference(set, set3);
     assert(strcmp(inversion_list_to_string(set1), "[1, 2, 4]") == 0);
-    
+
     inversion_list_destroy(null);
     inversion_list_destroy(set);
     inversion_list_destroy(set1);
