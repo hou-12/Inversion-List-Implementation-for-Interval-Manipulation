@@ -487,7 +487,6 @@ static InversionList *_intersection(const InversionList *set1,
 // A FAIRE EN VERSION DICHOTOMIQUE
 static InversionList *_difference(const InversionList *set1,
                                   const InversionList *set2) {
-
   if (set1 == NULL) {
     return NULL;
   }
@@ -577,7 +576,6 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
   va_start(args, set);
 
   while ((arg = va_arg(args, const InversionList *))) {
-
     if (inversion_list_not_equal(set, arg)) {
       if (temp == NULL) {
         inversion_list_destroy(temp);
@@ -606,7 +604,6 @@ InversionList *inversion_list_symmetric_difference(const InversionList *set1,
       inversion_list_intersection(set1, set2, (InversionList *)NULL);
   InversionList *u = inversion_list_union(set1, set2, (InversionList *)NULL);
   InversionList *res = inversion_list_difference(u, i, (InversionList *)NULL);
-
   inversion_list_destroy(i);
   inversion_list_destroy(u);
   return res;
@@ -655,7 +652,6 @@ unsigned int inversion_list_iterator_get(InversionListIterator *iterator) {
     if (inversion_list_member(iterator->set, iterator->index)) {
       return iterator->index;
     } else {
-
       return inversion_list_iterator_get(
           inversion_list_iterator_next(iterator));
     }
