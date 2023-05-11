@@ -1,5 +1,5 @@
-#ifndef INVERSION_LIST_H_
-#define INVERSION_LIST_H_
+#ifndef INVERSION_LIST_INVERSION_LIST_H_
+#define INVERSION_LIST_INVERSION_LIST_H_
 
 /**
  * @file inversion-list.h
@@ -176,4 +176,4 @@ extern unsigned int inversion_list_couple_iterator_get_inf(
 
 extern unsigned int inversion_list_couple_iterator_get_sup(
     const InversionListCoupleIterator *iterator);
-#endif // INVERSION_LIST_H_
+#endif  // INVERSION_LIST_INVERSION_LIST_H_
