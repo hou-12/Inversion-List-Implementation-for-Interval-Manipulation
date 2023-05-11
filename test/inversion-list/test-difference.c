@@ -23,26 +23,24 @@ int main(void) {
     InversionList *set2 = inversion_list_create(20, sizeof b / sizeof *b, b);
     InversionList *set3 = inversion_list_create(20, sizeof c / sizeof *c, c);
 
-    set1 = inversion_list_difference(set, set2, set3, (InversionList *)NULL);
+    set1 = inversion_list_difference(set, set2, set3, <InversionList *>NULL);
     assert(strcmp(inversion_list_to_string(set1), "[1]") == 0);
-    
     inversion_list_destroy(set1);
-
+    
     set1 = inversion_list_difference(set, set2, (InversionList *)NULL);
     assert(strcmp(inversion_list_to_string(set1), "[1, 3]") == 0);
-    
     inversion_list_destroy(set1);
-    
+
     // test difference symmetric
     set1 = inversion_list_symmetric_difference(set, set3);
     assert(strcmp(inversion_list_to_string(set1), "[1, 2, 4]") == 0);
-
+    
     inversion_list_destroy(set);
     inversion_list_destroy(set1);
     inversion_list_destroy(set2);
     inversion_list_destroy(set3);
   }
-
+  
   inversion_list_finish();
   return EXIT_SUCCESS;
 }
