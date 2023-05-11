@@ -42,7 +42,6 @@ int main(void) {
     inversion_list_destroy(set2);
     inversion_list_destroy(set3);
   }
-  
   inversion_list_finish();
   return EXIT_SUCCESS;
 }
