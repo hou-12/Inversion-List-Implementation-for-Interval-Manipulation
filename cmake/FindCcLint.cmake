@@ -1,4 +1,4 @@
-in_program(CCLINT_EXECUTABLE NAMES cclint)
+find_program(CCLINT_EXECUTABLE NAMES cclint)
 mark_as_advanced(CCLINT_EXECUTABLE)
 
 function(enable_cclint)
