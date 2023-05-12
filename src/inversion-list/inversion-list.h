@@ -37,9 +37,11 @@ extern bool inversion_list_finish(void);
  *
  * @return a new set of integers or `NULL` if there is an error
  *
- * @note a `NULL` return indicates an error which can be retrieved in `errno`
+ * @note a `NULL` return indicates an error which can be retrieved in
+ * `errno`
  */
-extern InversionList *inversion_list_create(unsigned int capacity, size_t count,
+extern InversionList *inversion_list_create(unsigned int capacity,
+                                            size_t count,
                                             const unsigned int *values);
 /**
  * Destroy a set of integers.
@@ -73,7 +75,8 @@ extern unsigned int inversion_list_support(const InversionList *set);
  *
  * @return the membership of the @p value in the @p set
  */
-extern bool inversion_list_member(const InversionList *set, unsigned int value);
+extern bool inversion_list_member(const InversionList *set,
+                                  unsigned int value);
 /**
  * Create a clone of set of integers.
  *
@@ -81,7 +84,8 @@ extern bool inversion_list_member(const InversionList *set, unsigned int value);
  *
  * @return a @p set clone or `NULL` if there is an error
  *
- * @note a `NULL` return indicates an error which can be retrieved in `errno`
+ * @note a `NULL` return indicates an error which can be retrieved in
+ * `errno`
  */
 extern InversionList *inversion_list_clone(const InversionList *set);
 /**
@@ -91,7 +95,8 @@ extern InversionList *inversion_list_clone(const InversionList *set);
  *
  * @return a @p set complement or `NULL` if there is an error
  *
- * @note a `NULL` return indicates an error which can be retrieved in `errno`
+ * @note a `NULL` return indicates an error which can be retrieved in
+ * `errno`
  */
 extern InversionList *inversion_list_complement(const InversionList *set);
 
@@ -100,10 +105,11 @@ extern InversionList *inversion_list_complement(const InversionList *set);
  *
  * @param set a set whose string conversion is requested
  *
- * @return the string representation of @p set or `NULL` if there is an error
- *         or if @p set is equal to `NULL`.
+ * @return the string representation of @p set or `NULL` if there is an
+ * error or if @p set is equal to `NULL`.
  *
- * @note a `NULL` return may indicate an error which can be retrieved in `errno`
+ * @note a `NULL` return may indicate an error which can be retrieved in
+ * `errno`
  */
 extern const char *inversion_list_to_string(const InversionList *set);
 
@@ -127,46 +133,47 @@ extern bool inversion_list_greater_equal(const InversionList *set1,
 extern bool inversion_list_disjoint(const InversionList *set1,
                                     const InversionList *set2);
 
-extern InversionList *
-inversion_list_symmetric_difference(const InversionList *set1,
-                                    const InversionList *set2);
+extern InversionList *inversion_list_symmetric_difference(
+    const InversionList *set1, const InversionList *set2);
 
 extern InversionList *inversion_list_union(const InversionList *set, ...);
 
 extern InversionList *inversion_list_intersection(const InversionList *set,
-                                                   ...);
+                                                  ...);
 
-extern InversionList *inversion_list_difference(const InversionList *set1, ...);
+extern InversionList *inversion_list_difference(const InversionList *set1,
+                                                ...);
 
-extern InversionListIterator *
-inversion_list_iterator_create(const InversionList *set);
+extern InversionListIterator *inversion_list_iterator_create(
+    const InversionList *set);
 
-extern void inversion_list_iterator_destroy(InversionListIterator *iterator);
+extern void inversion_list_iterator_destroy(
+    InversionListIterator *iterator);
 
-extern InversionListIterator *
-inversion_list_iterator_next(InversionListIterator *iterator);
+extern InversionListIterator *inversion_list_iterator_next(
+    InversionListIterator *iterator);
 
-extern InversionListIterator *
-inversion_list_iterator_rewind(InversionListIterator *iterator);
+extern InversionListIterator *inversion_list_iterator_rewind(
+    InversionListIterator *iterator);
 
-extern bool
-inversion_list_iterator_valid(const InversionListIterator *iterator);
+extern bool inversion_list_iterator_valid(
+    const InversionListIterator *iterator);
 
-extern unsigned int
-inversion_list_iterator_get(InversionListIterator *iterator);
+extern unsigned int inversion_list_iterator_get(
+    InversionListIterator *iterator);
 
 /****COUPLE ITERATOR******/
-extern InversionListCoupleIterator *
-inversion_list_couple_iterator_create(const InversionList *set);
+extern InversionListCoupleIterator *inversion_list_couple_iterator_create(
+    const InversionList *set);
 
-extern void
-inversion_list_couple_iterator_destroy(InversionListCoupleIterator *iterator);
+extern void inversion_list_couple_iterator_destroy(
+    InversionListCoupleIterator *iterator);
 
-extern InversionListCoupleIterator *
-inversion_list_couple_iterator_next(InversionListCoupleIterator *iterator);
+extern InversionListCoupleIterator *inversion_list_couple_iterator_next(
+    InversionListCoupleIterator *iterator);
 
-extern InversionListCoupleIterator *
-inversion_list_couple_iterator_rewind(InversionListCoupleIterator *iterator);
+extern InversionListCoupleIterator *inversion_list_couple_iterator_rewind(
+    InversionListCoupleIterator *iterator);
 
 extern bool inversion_list_iterator_couple_valid(
     const InversionListCoupleIterator *iterator);
