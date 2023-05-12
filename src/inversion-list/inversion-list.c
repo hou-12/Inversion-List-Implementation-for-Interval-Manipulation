@@ -333,7 +333,6 @@ const char *inversion_list_to_string(const InversionList *set) {
   if (!_add_string(&string, &length, "]")) {
     return NULL;
   }
-
   return string;
 }
 
