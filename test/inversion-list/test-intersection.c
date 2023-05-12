@@ -18,19 +18,24 @@ int main(void) {
     unsigned int b[] = {1, 2, 3, 5, 7, 9, 10};
     unsigned int c[] = {23, 12, 1};
 
-    InversionList *set = inversion_list_create(20, sizeof a / sizeof *a, a);
+    InversionList *set =
+        inversion_list_create(20, sizeof a / sizeof *a, a);
     InversionList *set1;
     InversionList *null = NULL;
 
-    InversionList *set2 = inversion_list_create(20, sizeof b / sizeof *b, b);
-    InversionList *set3 = inversion_list_create(20, sizeof c / sizeof *c, c);
+    InversionList *set2 =
+        inversion_list_create(20, sizeof b / sizeof *b, b);
+    InversionList *set3 =
+        inversion_list_create(20, sizeof c / sizeof *c, c);
 
     set1 = inversion_list_intersection(set, set2, set3, null);
-    assert(strcmp(inversion_list_to_string(set1), "[1, 2, 3, 5, 7, 9]") == 0);
+    assert(strcmp(inversion_list_to_string(set1), "[1, 2, 3, 5, 7, 9]") ==
+           0);
     inversion_list_destroy(set1);
 
-    set1 = inversion_list_intersection(set, set2,null);
-    assert(strcmp(inversion_list_to_string(set1), "[1, 2, 3, 5, 7, 9]") == 0);
+    set1 = inversion_list_intersection(set, set2, null);
+    assert(strcmp(inversion_list_to_string(set1), "[1, 2, 3, 5, 7, 9]") ==
+           0);
 
     inversion_list_destroy(null);
     inversion_list_destroy(set);
