@@ -64,7 +64,15 @@ jobs:
     - name: Coverage
       working-directory: ${{github.workspace}}/build
       run: make coverage
+      
+    - name: package
+      working-directory: ${{github.workspace}}/build
+      run: make package
 
     - name: Post coverage
       working-directory: ${{github.workspace}}/build
       run: coveralls-lcov --repo-token=${{secrets.COVERALLS_TOKEN}} coverage.info
+      
+    - name: docs
+      working-directory: ${{github.workspace}}/build
+      run: make docs
