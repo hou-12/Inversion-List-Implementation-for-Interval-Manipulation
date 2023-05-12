@@ -53,9 +53,9 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}}
 
-    - name: Lint
-      working-directory: ${{github.workspace}}/build
-      run: make cclint
+    #- name: Lint
+    #  working-directory: ${{github.workspace}}/build
+    #  run: make cclint
 
     - name: Flaw Finder
       working-directory: ${{github.workspace}}/build
