@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "inversion-list.h"  // NOLINT(build/include)
+#include "./inversion-list.h"  // NOLINT(build/include)
 #include "inversion-list.inc"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
