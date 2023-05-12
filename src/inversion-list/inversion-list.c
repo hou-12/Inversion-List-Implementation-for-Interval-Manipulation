@@ -1,5 +1,3 @@
-#include "./inversion-list.h"  // NOLINT(build/include)
-
 #include <assert.h>
 #include <errno.h>
 #include <math.h>
@@ -9,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "./inversion-list.h"  // NOLINT(build/include)
 #include "./inversion-list.inc"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -78,7 +77,8 @@ InversionList *inversion_list_create(unsigned int capacity, size_t count,
 
   unsigned int i;
   size_t size;
-  memcpy(buffer, values, count * sizeof(unsigned int));  // flawfinder: ignore
+  memcpy(buffer, values,
+         count * sizeof(unsigned int));  // flawfinder: ignore
   unsigned int support = 0;
   if (count) {
     qsort(buffer, count, sizeof *buffer, _compare_unsigned_int);
@@ -176,8 +176,8 @@ static int _search(const void *key, const void *value) {
 
 static const void *_bound(const void *key, const void *base, size_t nmemb,
                           size_t size,
-                          int (*compar)(const void *, const void *), int sign,
-                          bool strict) {
+                          int (*compar)(const void *, const void *),
+                          int sign, bool strict) {
   _compare_func = compar;
   _found = NULL;
   _sign = sign;
@@ -186,15 +186,15 @@ static const void *_bound(const void *key, const void *base, size_t nmemb,
   return _found;
 }
 
-static const void *_lower_bound(const void *key, const void *base, size_t nmemb,
-                                size_t size,
+static const void *_lower_bound(const void *key, const void *base,
+                                size_t nmemb, size_t size,
                                 int (*compar)(const void *, const void *),
                                 bool strict) {
   return _bound(key, base, nmemb, size, compar, 1, strict);
 }
 
-static const void *_upper_bound(const void *key, const void *base, size_t nmemb,
-                                size_t size,
+static const void *_upper_bound(const void *key, const void *base,
+                                size_t nmemb, size_t size,
                                 int (*compar)(const void *, const void *),
                                 bool strict) {
   return _bound(key, base, nmemb, size, compar, -1, strict);
@@ -233,7 +233,8 @@ InversionList *inversion_list_complement(const InversionList *set) {
   assert(_counter > 0);
 
   size_t size = set->size;
-  if (set->couples[0] == 0 && set->couples[set->size - 1] == set->capacity) {
+  if (set->couples[0] == 0 &&
+      set->couples[set->size - 1] == set->capacity) {
     size -= 2;
   } else if (set->couples[0] != 0 &&
              set->couples[set->size - 1] != set->capacity) {
@@ -280,7 +281,8 @@ static bool _add_string(char **pstring, unsigned int *plength,
     char *string = realloc(*pstring, *plength + inc_length + 1);
     if (string) {
       *pstring = string;
-      strncpy(*pstring + *plength, add, inc_length + 1);  // flawfinder: ignore
+      strncpy(*pstring + *plength, add,
+              inc_length + 1);  // flawfinder: ignore
       *plength += inc_length;
       return true;
     } else {
@@ -362,7 +364,8 @@ bool inversion_list_not_equal(const InversionList *set1,
 }
 
 /***************EXERCICE  2*******************/
-bool inversion_list_less(const InversionList *set1, const InversionList *set2) {
+bool inversion_list_less(const InversionList *set1,
+                         const InversionList *set2) {
   if (inversion_list_support(set1) >= inversion_list_support(set2)) {
     return 0;
   }
@@ -396,7 +399,8 @@ bool inversion_list_less(const InversionList *set1, const InversionList *set2) {
 
 bool inversion_list_less_equal(const InversionList *set1,
                                const InversionList *set2) {
-  return inversion_list_equal(set1, set2) || inversion_list_less(set1, set2);
+  return inversion_list_equal(set1, set2) ||
+         inversion_list_less(set1, set2);
 }
 
 bool inversion_list_greater(const InversionList *set1,
@@ -504,7 +508,8 @@ static InversionList *_difference(const InversionList *set1,
       MAX(set1->couples[set1->size - 1], set2->couples[set2->size - 1]);
 
   for (i = 0; i <= max; i++) {
-    if (inversion_list_member(set1, i) && !inversion_list_member(set2, i)) {
+    if (inversion_list_member(set1, i) &&
+        !inversion_list_member(set2, i)) {
       buff[j++] = i;
     }
   }
@@ -598,25 +603,24 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
 }
 
 /***************************EXERCICE3***************************/
-InversionList *inversion_list_symmetric_difference(const InversionList *set1,
-                                                   const InversionList *set2) {
+InversionList *inversion_list_symmetric_difference(
+    const InversionList *set1, const InversionList *set2) {
   InversionList *null = NULL;
-  InversionList *i =
-      inversion_list_intersection(set1, set2, null);
+  InversionList *i = inversion_list_intersection(set1, set2, null);
   InversionList *u = inversion_list_union(set1, set2, null);
   InversionList *res = inversion_list_difference(u, i, null);
-  
+
   inversion_list_destroy(i);
   inversion_list_destroy(u);
   inversion_list_destroy(null);
-  
+
   return res;
 }
 
 /***************************EXERCICE 6***************************/
 
-InversionListIterator *
-inversion_list_iterator_create(const InversionList *set) {
+InversionListIterator *inversion_list_iterator_create(
+    const InversionList *set) {
   assert(_counter > 0);
   InversionListIterator *iterator = malloc(sizeof(InversionListIterator));
   if (iterator) {
@@ -632,15 +636,15 @@ void inversion_list_iterator_destroy(InversionListIterator *iterator) {
   free(iterator);
 }
 
-InversionListIterator *
-inversion_list_iterator_next(InversionListIterator *iterator) {
+InversionListIterator *inversion_list_iterator_next(
+    InversionListIterator *iterator) {
   assert(_counter > 0);
   iterator->index++;
   return iterator;
 }
 
-InversionListIterator *
-inversion_list_iterator_rewind(InversionListIterator *iterator) {
+InversionListIterator *inversion_list_iterator_rewind(
+    InversionListIterator *iterator) {
   assert(_counter > 0);
   iterator->index = 0;
   return iterator;
@@ -664,10 +668,11 @@ unsigned int inversion_list_iterator_get(InversionListIterator *iterator) {
 }
 
 /***************************EXERCICE 7***************************/
-InversionListCoupleIterator *
-inversion_list_couple_iterator_create(const InversionList *set) {
+InversionListCoupleIterator *inversion_list_couple_iterator_create(
+    const InversionList *set) {
   assert(_counter > 0);
-  InversionListCoupleIterator *iterator = malloc(sizeof(InversionListIterator));
+  InversionListCoupleIterator *iterator =
+      malloc(sizeof(InversionListIterator));
   if (iterator) {
     iterator->set = set;
     iterator->index = 0;
@@ -675,20 +680,21 @@ inversion_list_couple_iterator_create(const InversionList *set) {
   return iterator;
 }
 
-void inversion_list_iterator_couple_destroy(InversionListIterator *iterator) {
+void inversion_list_iterator_couple_destroy(
+    InversionListIterator *iterator) {
   assert(_counter > 0);
   free(iterator);
 }
 
-InversionListCoupleIterator *
-inversion_list_couple_iterator_next(InversionListCoupleIterator *iterator) {
+InversionListCoupleIterator *inversion_list_couple_iterator_next(
+    InversionListCoupleIterator *iterator) {
   assert(_counter > 0);
   iterator->index++;
   return iterator;
 }
 
-InversionListCoupleIterator *
-inversion_list_couple_iterator_rewind(InversionListCoupleIterator *iterator) {
+InversionListCoupleIterator *inversion_list_couple_iterator_rewind(
+    InversionListCoupleIterator *iterator) {
   assert(_counter > 0);
   iterator->index = 0;
   return iterator;
