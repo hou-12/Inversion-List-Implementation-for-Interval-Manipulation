@@ -8,6 +8,7 @@
 #include "inversion-list/inversion-list.h"
 #include "inversion-list/inversion-list.inc"
 
+// NOLINTNEXTLINE(runtime/references)
 int main(void) {
   InversionList set;
   assert(sizeof set == 2 * sizeof(unsigned int) + sizeof(size_t));
