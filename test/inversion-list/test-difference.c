@@ -18,10 +18,13 @@ int main(void) {
     unsigned int b[] = {2};
     unsigned int c[] = {3, 4};
     InversionList *null = NULL;
-    InversionList *set = inversion_list_create(20, sizeof a / sizeof *a, a);
+    InversionList *set =
+        inversion_list_create(20, sizeof a / sizeof *a, a);
     InversionList *set1;
-    InversionList *set2 = inversion_list_create(20, sizeof b / sizeof *b, b);
-    InversionList *set3 = inversion_list_create(20, sizeof c / sizeof *c, c);
+    InversionList *set2 =
+        inversion_list_create(20, sizeof b / sizeof *b, b);
+    InversionList *set3 =
+        inversion_list_create(20, sizeof c / sizeof *c, c);
 
     set1 = inversion_list_difference(set, set2, set3, null);
     assert(strcmp(inversion_list_to_string(set1), "[1]") == 0);
