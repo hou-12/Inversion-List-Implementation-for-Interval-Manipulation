@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "inversion-list.h"  // NOLINT(build/include)
-#include "inversion-list.inc"  // NOLINT(build/include)
+#include "./inversion-list.h"  // NOLINT(build/include)
+#include "inversion-list.inc"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -333,7 +333,7 @@ const char *inversion_list_to_string(const InversionList *set) {
   if (!_add_string(&string, &length, "]")) {
     return NULL;
   }
-  return string;
+  return string;   // NOLINT(build/include)
 }
 
 bool _in_list(const InversionList *set1, const InversionList *set2) {
