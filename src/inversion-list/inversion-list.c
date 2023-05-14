@@ -1,3 +1,5 @@
+
+
 #include <assert.h>
 #include <errno.h>
 #include <math.h>
@@ -334,7 +336,7 @@ const char *inversion_list_to_string(const InversionList *set) {
   if (!_add_string(&string, &length, "]")) {
     return NULL;
   }
-  return string;   // NOLINT(build/include)
+  return string;  // NOLINT(build/include)
 }
 
 bool _in_list(const InversionList *set1, const InversionList *set2) {
@@ -420,7 +422,7 @@ static InversionList *_union(const InversionList *set1,
   if (!buff) {
     return NULL;
   }
-  
+
   unsigned int max, i;
   unsigned int j = 0;
 
@@ -534,13 +536,13 @@ InversionList *inversion_list_intersection(const InversionList *set, ...) {
   const InversionList *arg;
   InversionList *res = NULL;
   InversionList *temp = inversion_list_clone(set);
-  
+
   va_list args;
   va_start(args, set);
-  
+
   while ((arg = va_arg(args, const InversionList *))) {
     inversion_list_destroy(res);
-    
+
     res = _intersection(temp, arg);
 
     inversion_list_destroy(temp);
@@ -557,10 +559,10 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
   const InversionList *arg;
   InversionList *res;
   InversionList *temp = NULL;
-  
+
   va_list args;
   va_start(args, set);
-  
+
   while ((arg = va_arg(args, const InversionList *))) {
     if (inversion_list_not_equal(set, arg)) {
       if (temp == NULL) {
