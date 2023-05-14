@@ -1,13 +1,3 @@
-#include <stdlib.h>
-
-#ifdef NDEBUG
-#undef NDEBUG
-#endif
-#include <assert.h>
-
-#include "inversion-list/inversion-list.h"
-#include "inversion-list/inversion-list.inc"
-
 int main(void) {
   inversion_list_init();
   {
