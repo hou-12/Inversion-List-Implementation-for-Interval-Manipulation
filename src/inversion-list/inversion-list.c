@@ -420,9 +420,8 @@ static InversionList *_union(const InversionList *set1,
   if (!buff) {
     return NULL;
   }
-
-  unsigned int max, i;
   
+  unsigned int max, i;
   unsigned int j = 0;
 
   unsigned int cap = MAX(set1->capacity, set2->capacity);
@@ -541,7 +540,7 @@ InversionList *inversion_list_intersection(const InversionList *set, ...) {
   
   while ((arg = va_arg(args, const InversionList *))) {
     inversion_list_destroy(res);
-
+    
     res = _intersection(temp, arg);
 
     inversion_list_destroy(temp);
@@ -561,7 +560,7 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
   
   va_list args;
   va_start(args, set);
-
+  
   while ((arg = va_arg(args, const InversionList *))) {
     if (inversion_list_not_equal(set, arg)) {
       if (temp == NULL) {
