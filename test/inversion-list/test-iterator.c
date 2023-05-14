@@ -23,13 +23,16 @@ int main(void) {
     for (iterator = inversion_list_couple_iterator_create(set);
          inversion_list_iterator_couple_valid(iterator);
          iterator = inversion_list_couple_iterator_next(iterator)) {
+      
       assert(set->couples[iterator->index * 2] ==
              inversion_list_couple_iterator_get_inf(iterator));
+      
       assert(set->couples[iterator->index * 2 + 1] ==
              inversion_list_couple_iterator_get_sup(iterator));
     }
 
     inversion_list_destroy(set);
+    free(iterator);
   }
 
   inversion_list_finish();
