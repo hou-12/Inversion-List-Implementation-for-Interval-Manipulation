@@ -11,6 +11,7 @@
 #include "inversion-list.inc"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 static void *_buffer = NULL;
 static size_t _size = 0;
@@ -435,7 +436,7 @@ static InversionList *_union(const InversionList *set1,
     return NULL;
   }
 
-  unsigned int max;
+  unsigned int max, min;
 
   unsigned int i = 0;
   unsigned int j = 0;
@@ -443,6 +444,7 @@ static InversionList *_union(const InversionList *set1,
   unsigned int cap = MAX(set1->capacity, set2->capacity);
 
   max = MAX(set1->couples[set1->size - 1], set2->couples[set2->size - 1]);
+  i = MIN(set1->couples[0], set2->couples[0]);
 
   while (i <= max) {
     if (inversion_list_member(set1, i) || inversion_list_member(set2, i)) {
