@@ -32,7 +32,7 @@ int main(void) {
     }
 
     inversion_list_destroy(set);
-    free(iterator);
+    inversion_list_iterator_couple_destroy(iterator)
   }
 
   inversion_list_finish();
