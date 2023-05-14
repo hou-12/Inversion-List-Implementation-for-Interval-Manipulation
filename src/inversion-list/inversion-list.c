@@ -380,21 +380,6 @@ bool inversion_list_less(const InversionList *set1,
     i++;
   }
   return count;
-
-  /*
-    for (i = 0; i < set2->size; i += 2) {
-      for (j = 0; j < set1->size; j += 2) {
-        if (set1->couples[j + 1] <= set2->couples[i + 1] &&
-            set1->couples[j + 1] > set2->couples[i]) {
-          count++;
-        }
-      }
-    }
-    if (set1->size == count * 2 && count > 0) {
-      return 1;
-    }
-    */
-  return count;
 }
 
 bool inversion_list_less_equal(const InversionList *set1,
@@ -436,9 +421,8 @@ static InversionList *_union(const InversionList *set1,
     return NULL;
   }
 
-  unsigned int max, min;
-
-  unsigned int i = 0;
+  unsigned int max, i;
+  
   unsigned int j = 0;
 
   unsigned int cap = MAX(set1->capacity, set2->capacity);
@@ -460,10 +444,10 @@ static InversionList *_union(const InversionList *set1,
 static InversionList *_intersection(const InversionList *set1,
                                     const InversionList *set2) {
   if (set2 == NULL) {
-    return inversion_list_clone(set2);
+    return inversion_list_clone(set1);
   }
   if (set1 == NULL) {
-    return inversion_list_clone(set1);
+    return inversion_list_clone(set2);
   }
 
   unsigned int *buff =
@@ -472,14 +456,14 @@ static InversionList *_intersection(const InversionList *set1,
   if (!buff) {
     return NULL;
   }
-  unsigned int i;
+  unsigned int i, max, min;
   unsigned int j = 0;
   unsigned int cap = MAX(set1->capacity, set2->capacity);
 
-  unsigned int max =
-      MAX(set1->couples[set1->size - 1], set2->couples[set2->size - 1]);
+  max = MAX(set1->couples[set1->size - 1], set2->couples[set2->size - 1]);
+  min = MIN(set1->couples[0], set2->couples[0]);
 
-  for (i = 0; i <= max; i++) {
+  for (i = min; i <= max; i++) {
     if (inversion_list_member(set1, i) && inversion_list_member(set2, i)) {
       buff[j++] = i;
     }
@@ -501,14 +485,14 @@ static InversionList *_difference(const InversionList *set1,
   if (!buff) {
     return NULL;
   }
-  unsigned int i;
+  unsigned int i, max, min;
   unsigned int j = 0;
   unsigned int cap = MAX(set1->capacity, set2->capacity);
 
-  unsigned int max =
-      MAX(set1->couples[set1->size - 1], set2->couples[set2->size - 1]);
+  max = MAX(set1->couples[set1->size - 1], set2->couples[set2->size - 1]);
+  min = MIN(set1->couples[0], set2->couples[0]);
 
-  for (i = 0; i <= max; i++) {
+  for (i = min; i <= max; i++) {
     if (inversion_list_member(set1, i) &&
         !inversion_list_member(set2, i)) {
       buff[j++] = i;
@@ -551,12 +535,10 @@ InversionList *inversion_list_intersection(const InversionList *set, ...) {
   const InversionList *arg;
   InversionList *res = NULL;
   InversionList *temp = inversion_list_clone(set);
+  
   va_list args;
-  unsigned int i = 0;
-
   va_start(args, set);
-  unsigned int count = 0;
-
+  
   while ((arg = va_arg(args, const InversionList *))) {
     inversion_list_destroy(res);
 
@@ -576,9 +558,8 @@ InversionList *inversion_list_difference(const InversionList *set, ...) {
   const InversionList *arg;
   InversionList *res;
   InversionList *temp = NULL;
+  
   va_list args;
-  unsigned int i = 0;
-
   va_start(args, set);
 
   while ((arg = va_arg(args, const InversionList *))) {
