@@ -311,7 +311,7 @@ extern bool inversion_list_iterator_valid(
  *
  * @param iterator the iterator that will give his current member
  *
- * @return the current membre of @p iterator
+ * @return the current membre of the @p iterator
  *
  */
 extern unsigned int inversion_list_iterator_get(
@@ -375,7 +375,7 @@ extern bool inversion_list_iterator_couple_valid(
  *
  * @param iterator the iterator that will give his current inferior member
  *
- * @return the current inferior membre of @p iterator
+ * @return the current inferior membre of the @p iterator
  *
  */
 extern unsigned int inversion_list_couple_iterator_get_inf(
