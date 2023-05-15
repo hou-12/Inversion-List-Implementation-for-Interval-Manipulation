@@ -684,7 +684,7 @@ InversionListCoupleIterator *inversion_list_couple_iterator_rewind(
 bool inversion_list_iterator_couple_valid(
     const InversionListCoupleIterator *iterator) {
   assert(_counter > 0);
-  return iterator->index < iterator->set->size;
+  return iterator->index < iterator->set->size / 2;
 }
 
 unsigned int inversion_list_couple_iterator_get_inf(
