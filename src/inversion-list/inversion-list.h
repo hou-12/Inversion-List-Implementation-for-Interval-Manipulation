@@ -15,8 +15,16 @@
  */
 typedef struct _InversionList InversionList;
 
+/**
+ * `InversionListIterator` is an opaque structure able to handle iterator
+ * of an inversion list
+ */
 typedef struct _InversionListIterator InversionListIterator;
 
+/**
+ * `InversionListCoupleIterato` is an opaque structure able to handle iterator over couples
+ * of an inversion list.
+ */
 typedef struct _InversionListCoupleIterator InversionListCoupleIterator;
 
 /**
