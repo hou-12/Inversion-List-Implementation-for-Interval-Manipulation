@@ -689,10 +689,10 @@ bool inversion_list_iterator_couple_valid(
 
 unsigned int inversion_list_couple_iterator_get_inf(
     const InversionListCoupleIterator *iterator) {
-  return iterator->set->couples[iterator->index];
+  return iterator->set->couples[iterator->index * 2];
 }
 
 unsigned int inversion_list_couple_iterator_get_sup(
     const InversionListCoupleIterator *iterator) {
-  return iterator->set->couples[iterator->index + 1];
+  return iterator->set->couples[iterator->index * 2 + 1];
 }
