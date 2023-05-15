@@ -25,7 +25,6 @@ int main(void) {
          iterator = inversion_list_iterator_next(iterator)) {
       assert(inversion_list_member(set,
                                    inversion_list_iterator_get(iterator)));
-      i++;
     }
 
     inversion_list_destroy(set);
