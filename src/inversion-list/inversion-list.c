@@ -413,27 +413,63 @@ static InversionList *_union(const InversionList *set1,
     return inversion_list_clone(set1);
   }
 
-  unsigned int *buff =
-      _get_buffer((set1->support + set2->support) * sizeof(unsigned int));
+  unsigned int *buff = _get_buffer((set1->support + set2->support) *
+                                   sizeof(unsigned int) * 2);
 
   if (!buff) {
     return NULL;
   }
 
-  unsigned int max, i;
   unsigned int j = 0;
-
+  unsigned int i2 = 0;
   unsigned int cap = MAX(set1->capacity, set2->capacity);
 
-  max = MAX(set1->couples[set1->size - 1], set2->couples[set2->size - 1]);
-  i = MIN(set1->couples[0], set2->couples[0]);
+  unsigned int i = 0;
+  unsigned int set1_size = set1->size;
+  unsigned int set2_size = set2->size;
 
-  while (i <= max) {
-    if (inversion_list_member(set1, i) || inversion_list_member(set2, i)) {
-      buff[j++] = i;
+  while (i < set1_size && i2 < set2_size) {
+    unsigned int set1_min = set1->couples[i];
+    unsigned int set1_max = set1->couples[i + 1];
+
+    unsigned int set2_min = set2->couples[i2];
+    unsigned int set2_max = set2->couples[i2 + 1];
+
+    unsigned int min = MAX(set1_min, set2_min);
+    unsigned int max = MIN(set1_max, set2_max);
+
+    if (min <= max) {
+      for (unsigned int k = min; k <= max; k++) {
+        if (inversion_list_member(set1, k) ||
+            inversion_list_member(set2, k)) {
+          buff[j++] = k;
+        }
+      }
     }
-    i++;
+
+    if (set1_max < set2_max) {
+      for (unsigned int k = set1_max; k < set2_max; k++) {
+        if (inversion_list_member(set1, k) ||
+            inversion_list_member(set2, k))
+          buff[j++] = k;
+      }
+
+      i += 2;
+    } else if (set1_max > set2_max) {
+      for (unsigned int k = set2_max; k < set1_max; k++) {
+        if (inversion_list_member(set1, k) ||
+            inversion_list_member(set2, k))
+          buff[j++] = k;
+      }
+
+      i2 += 2;
+    } else {
+      i += 2;
+      i2 += 2;
+    }
   }
+  buff[j++] = MAX(set1->couples[set1->size - 1] - 1,
+                  set2->couples[set2->size - 1] - 1);
 
   return inversion_list_create(cap, j, buff);
 }
