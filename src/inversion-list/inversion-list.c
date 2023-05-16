@@ -435,7 +435,7 @@ static InversionList *_union(const InversionList *set1,
     unsigned int set2_min = set2->couples[i2];
     unsigned int set2_max = set2->couples[i2 + 1];
 
-    unsigned int min = MAX(set1_min, set2_min);
+    unsigned int min = 0;
     unsigned int max = MIN(set1_max, set2_max);
 
     if (min <= max) {
@@ -448,32 +448,17 @@ static InversionList *_union(const InversionList *set1,
     }
 
     if (set1_max < set2_max) {
-      for (unsigned int k = set1_max; k < set2_max; k++) {
-        if (inversion_list_member(set1, k) ||
-            inversion_list_member(set2, k))
-          buff[j++] = k;
-      }
-
       i += 2;
     } else if (set1_max > set2_max) {
-      for (unsigned int k = set2_max; k < set1_max; k++) {
-        if (inversion_list_member(set1, k) ||
-            inversion_list_member(set2, k))
-          buff[j++] = k;
-      }
-
       i2 += 2;
     } else {
       i += 2;
       i2 += 2;
     }
   }
-  buff[j++] = MAX(set1->couples[set1->size - 1] - 1,
-                  set2->couples[set2->size - 1] - 1);
 
   return inversion_list_create(cap, j, buff);
 }
-
 static InversionList *_intersection(const InversionList *set1,
                                     const InversionList *set2) {
   if (set2 == NULL) {
