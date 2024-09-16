@@ -4,10 +4,13 @@ inversion-list project
 |cmake| |Coveralls| |Documentation Status|
 
 ## Overview
+Overview
+--------
 
 The **inversion-list** project implements a memory-efficient data structure designed to manage sparse sets of integers using ranges (inversion lists). This data structure is ideal for scenarios where large, consecutive integer ranges are stored and accessed frequently, enabling efficient set operations (union, intersection, difference) and membership queries.
 
 ### Key Features:
+    -------------
 - **Memory-efficient representation** of sparse data by storing ranges instead of individual integers.
 - **Efficient query operations**, such as membership checks, union, intersection, and set differences.
 - **Support for sparse datasets** such as IP address ranges, date intervals, and database indices.
