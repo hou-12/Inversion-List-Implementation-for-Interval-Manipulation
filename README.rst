@@ -1,4 +1,4 @@
-inversion-list project
+Inversion-list Project
 ====================
 
 |cmake| |Coveralls| |Documentation Status|
@@ -14,7 +14,6 @@ Key Features:
 - **Efficient query operations**, such as membership checks, union, intersection, and set differences.
 - **Support for sparse datasets** such as IP address ranges, date intervals, and database indices.
   
----
 
 Installation
 ------------
